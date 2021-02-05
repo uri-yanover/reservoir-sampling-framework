@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 from dataclasses import dataclass, field
-from reservoir_sample_framework.interfaces import FilerSink
+from reservoir_sampling_framework.interfaces import FilerSink
 from typing import BinaryIO, List
 from os import remove
 
 from random import randrange, seed
 
-from reservoir_sample_framework import Filer, reservoir_sample
+from reservoir_sampling_framework import Filer, reservoir_sample
 
 @dataclass
 class FileFiler(Filer):

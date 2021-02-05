@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from functools import partial
 from typing import List
 
-from reservoir_sample_framework import Filer, reservoir_sample, FilerSink
+from reservoir_sampling_framework import Filer, reservoir_sample, FilerSink
 from random import randrange, seed
 
 @dataclass
