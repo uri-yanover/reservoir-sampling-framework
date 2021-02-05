@@ -4,7 +4,7 @@ setup(
     name="reservoir-sampling-framework",
     version="0.0.1",
     packages=find_packages(),
-    description='A ',
+    description='A rudimentary online reservoir sampling framework',
     author='Uri Yanover',
     author_email='throwaway+reservoir@yanover.name',
     url='https://github.com/uri-yanover/reservior-sampling-framework',
