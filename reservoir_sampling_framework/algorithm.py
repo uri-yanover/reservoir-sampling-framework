@@ -19,7 +19,7 @@ def reservoir_sample(source: Union[Iterator[T], Generator[T, None, None]],
     remaining = {}
 
     for (index, record) in enumerate(source, start=1):
-        if randrange(index) == 0:
+        if randrange(index) < len(sink_usage_intents):
             chosen = randrange(len(sink_usage_intents))
             if chosen in remaining:
                 sink_usage_intents[chosen].sink.revert()
