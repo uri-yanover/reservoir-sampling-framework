@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from functools import partial
 from typing import List
 
-from reservoir_sampling_framework import Filer, reservoir_sample, FilerSink
+from reservoir_sampling_framework import Filer, reservoir_sample, FilerSink, SinkUsageIntent
 from random import randrange, seed
 
 @dataclass
@@ -47,9 +47,8 @@ def test_single_sink():
     source = iter((str(k).encode('utf-8') for k in range(1000)))
 
     reservoir_sample(source=source, 
-                     sinks=(sink,), 
-                     randrange=randrange,
-                     run_length=15)
+                     sink_usage_intents=(SinkUsageIntent(sink, 15),), 
+                     randrange=randrange)
 
 
 def test_double_sink():
@@ -61,9 +60,10 @@ def test_double_sink():
     source = iter((str(k).encode('utf-8') for k in range(100000)))
 
     reservoir_sample(source=source, 
-                     sinks=(sink1, sink2,), 
-                     randrange=randrange,
-                     run_length=15)
+                     sink_usage_intents=(
+                         SinkUsageIntent(sink1, 15), 
+                         SinkUsageIntent(sink2, 15),), 
+                     randrange=randrange)
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from dataclasses import dataclass, field
-from reservoir_sampling_framework.interfaces import FilerSink
+from reservoir_sampling_framework import FilerSink, SinkUsageIntent
 from typing import BinaryIO, List
 from os import remove
 
@@ -38,16 +38,15 @@ def run(source_file_name: str, destination_stem: str, destination_count: int, ru
         counter[0] += 1
         return FileFiler(file_name, file_object)
     
-    sinks = tuple(FilerSink(in_memory_filer_factory) for _ in range(destination_count))
+    sinks = tuple(SinkUsageIntent(FilerSink(in_memory_filer_factory), run_length) for _ in range(destination_count))
 
     with open(source_file_name, 'rb') as source_file_object:
         iterator = iter(source_file_object)
         reservoir_sample(iterator, 
-                     sinks=sinks, 
-                     randrange=randrange,
-                     run_length=run_length) 
+                     sink_usage_intents=sinks, 
+                     randrange=randrange) 
 
-    return [sink.finalize() for sink in sinks]
+    return [sink.sink.finalize() for sink in sinks]
 
 
 if __name__ == '__main__':
