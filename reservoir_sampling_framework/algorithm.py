@@ -24,6 +24,7 @@ def reservoir_sample(source: Union[Iterator[T], Generator[T, None, None]],
                      logging_period=_DEFAULT_LOGGING_PERIOD) -> None:
     remaining = {}
 
+    index = 0
     for (index, record) in enumerate(source, start=1):
         if index % logging_period == 0:
             _LOGGER.info(f'At index {index}. Size of remaining {len(remaining)}')
@@ -42,6 +43,6 @@ def reservoir_sample(source: Union[Iterator[T], Generator[T, None, None]],
             else:
                 remaining[key] = count - 1
 
-    _LOGGER.info('Wrapping up, record number={index}')
+    _LOGGER.info(f'Wrapping up, record number={index}')
     for key in remaining.keys():
         sink_usage_intents[key].sink.revert()
