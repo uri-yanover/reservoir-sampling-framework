@@ -42,6 +42,6 @@ def reservoir_sample(source: Union[Iterator[T], Generator[T, None, None]],
             else:
                 remaining[key] = count - 1
 
-    _LOGGER.info('Wrapping up')
+    _LOGGER.info('Wrapping up, record number={index}')
     for key in remaining.keys():
         sink_usage_intents[key].sink.revert()
